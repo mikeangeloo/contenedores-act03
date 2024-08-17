@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mean-frontend
+  namespace: mean-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: mean-frontend
+  template:
+    metadata:
+      labels:
+        app: mean-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: mikeangeloo/frontend-app:v1.0.0
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: nginx-config-volume
+              mountPath: /etc/nginx/conf.d/default.conf
+              subPath: default.conf
+      volumes:
+        - name: nginx-config-volume
+          configMap:
+            name: nginx-config
