@@ -5,14 +5,14 @@ metadata:
   namespace: mean-app
 data:
   mongo-init.js: |
-    db = db.getSiblingDB("meanStackExample"); // Selecciona la base de datos
+    db = db.getSiblingDB(`${process.env.MONGO_INITDB_DATABASE}`); // Selecciona la base de datos
     db.createUser({
-      user: "appuser",
-      pwd: "apppassword123",
+      user: `${process.env.MONGO_INITDB_ROOT_USERNAME}`,
+      pwd: `${process.env.MONGO_INITDB_ROOT_PASSWORD}`,
       roles: [
         {
           role: "readWrite",
-          db: "meanStackExample"
+          db: `${process.env.MONGO_INITDB_DATABASE}`
         }
       ]
     });

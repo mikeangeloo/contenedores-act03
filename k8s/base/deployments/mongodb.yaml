@@ -29,6 +29,11 @@ spec:
                 secretKeyRef:
                   name: db-secrets
                   key: DB_PASSWORD
+            - name: MONGO_INITDB_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: db-secrets
+                  key: DB_NAME
           volumeMounts:
             - name: mongo-init-volume
               mountPath: /docker-entrypoint-initdb.d
